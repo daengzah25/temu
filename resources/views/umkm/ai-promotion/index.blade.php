@@ -143,14 +143,21 @@ document.getElementById('aiForm').addEventListener('submit', async function(e) {
     document.getElementById('resultContainer').style.display = 'none';
 
     try {
+        // Tambah timeout 90 detik
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 90000);
+
         const response = await fetch('{{ route("ai-promotion.generate") }}', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(data),
+            signal: controller.signal
         });
+
+        clearTimeout(timeoutId);
 
         const result = await response.json();
 
@@ -161,7 +168,11 @@ document.getElementById('aiForm').addEventListener('submit', async function(e) {
         }
 
     } catch (error) {
-        alert('Gagal generate konten: ' + error.message);
+        if (error.name === 'AbortError') {
+            alert('Request timeout. Model mungkin masih loading, coba lagi dalam 20 detik.');
+        } else {
+            alert('Gagal generate konten: ' + error.message);
+        }
     } finally {
         document.getElementById('generateBtn').disabled = false;
         document.getElementById('generateBtn').innerHTML = '<i class="fas fa-magic"></i> Generate Konten AI';
