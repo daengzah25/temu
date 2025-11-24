@@ -46,7 +46,12 @@ class UmkmController extends Controller
         if ($request->hasFile('logo')) {
             $file = $request->file('logo');
             $filename = time() . '_' . Str::slug($request->name) . '.' . $file->getClientOriginalExtension();
-            $logoPath = $file->storeAs('companies', $filename, 'public');
+            // Upload ke Cloudinary
+            $uploadedFile = cloudinary()->upload($file->getRealPath(), [
+                'folder' => 'temu/companies',
+                'resource_type' => 'image'
+            ]);
+            $logoPath = $uploadedFile->getSecurePath();
         }
 
         // Simpan data company
@@ -143,7 +148,12 @@ class UmkmController extends Controller
 
             $file = $request->file('logo');
             $filename = time() . '_' . Str::slug($request->name) . '.' . $file->getClientOriginalExtension();
-            $logoPath = $file->storeAs('companies', $filename, 'public');
+            // Upload ke Cloudinary
+            $uploadedFile = cloudinary()->upload($file->getRealPath(), [
+                'folder' => 'temu/companies',
+                'resource_type' => 'image'
+            ]);
+            $logoPath = $uploadedFile->getSecurePath();
         }
 
         // Update data

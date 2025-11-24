@@ -64,7 +64,12 @@ class ProductController extends Controller
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $index => $image) {
                 $filename = time() . '_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
-                $path = $image->storeAs('products', $filename, 'public');
+                // Upload ke Cloudinary
+                $uploadedFile = cloudinary()->upload($image->getRealPath(), [
+                    'folder' => 'temu/products',
+                    'resource_type' => 'image'
+                ]);
+                $path = $uploadedFile->getSecurePath();
 
                 ProductImage::create([
                     'product_id' => $product->id,
@@ -117,7 +122,12 @@ class ProductController extends Controller
 
             foreach ($request->file('images') as $index => $image) {
                 $filename = time() . '_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
-                $path = $image->storeAs('products', $filename, 'public');
+                // Upload ke Cloudinary
+                $uploadedFile = cloudinary()->upload($image->getRealPath(), [
+                    'folder' => 'temu/products',
+                    'resource_type' => 'image'
+                ]);
+                $path = $uploadedFile->getSecurePath();
 
                 ProductImage::create([
                     'product_id' => $product->id,

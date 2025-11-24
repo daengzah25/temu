@@ -45,7 +45,7 @@
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
                     @foreach($product->images as $image)
                         <div style="position: relative;" id="image-{{ $image->id }}">
-                            <img src="{{ asset('storage/' . $image->image_path) }}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px;">
+                            <img src="{{$image->image_path) }}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px;">
                             <button type="button" onclick="deleteImage({{ $image->id }})" style="position: absolute; top: 8px; right: 8px; background: #EF4444; color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer;">
                                 <i class="fas fa-trash"></i>
                             </button>
