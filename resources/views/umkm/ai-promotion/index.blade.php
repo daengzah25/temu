@@ -147,7 +147,7 @@ document.getElementById('aiForm').addEventListener('submit', async function(e) {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 90000);
 
-        const response = await fetch('{{ route("ai-promotion.generate") }}', {
+        const response = await fetch('{{ secure_url(route("ai-promotion.generate", [], false)) }}', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -245,7 +245,7 @@ async function savePromotion(platform, promptData, result) {
     const data = JSON.parse(promptData);
 
     try {
-        const response = await fetch('{{ route("ai-promotion.store") }}', {
+        const response = await fetch('{{ secure_url(route("ai-promotion.generate", [], false)) }}', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
