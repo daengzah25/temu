@@ -46,14 +46,14 @@
     <div class="card">
         <h3 class="mb2">Menu Cepat</h3>
         <div style="display: grid; gap: 12px;">
-            <a href="#" style="background: #EFF6FF; padding: 16px; border-radius: 8px; text-decoration: none; color: inherit; display: flex; align-items: center; gap: 12px;">
+            <a href="{{ route('products.index') }}" style="background: #EFF6FF; padding: 16px; border-radius: 8px; text-decoration: none; color: inherit; display: flex; align-items: center; gap: 12px;">
                 <i class="fas fa-box" style="font-size: 24px; color: #3B82F6;"></i>
                 <div>
                     <h3>Kelola Produk</h3>
                     <p class="text-sm text-gray">Tambah, edit, atau hapus produk</p>
                 </div>
             </a>
-            <a href="#" style="background: #F0FDF4; padding: 16px; border-radius: 8px; text-decoration: none; color: inherit; display: flex; align-items: center; gap: 12px;">
+            <a href="{{ route('ai-promotion.index') }}" style="background: #F0FDF4; padding: 16px; border-radius: 8px; text-decoration: none; color: inherit; display: flex; align-items: center; gap: 12px;">
                 <i class="fas fa-robot" style="font-size: 24px; color: #10B981;"></i>
                 <div>
                     <h3>AI Promosi</h3>
