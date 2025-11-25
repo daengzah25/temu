@@ -36,7 +36,7 @@
             <h3 class="mb2">🏪 Info UMKM</h3>
             <div class="flex items-center gap mb2">
                 @if($user->company->logo)
-                    <img src="{{ $user->company->logo) }}" alt="Logo" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px;">
+                    <img src="{{ $user->company->logo }}" alt="Logo" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px;">
                 @endif
                 <div style="flex: 1;">
                     <h3>{{ $user->company->name }}</h3>
