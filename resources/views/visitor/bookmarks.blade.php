@@ -14,7 +14,7 @@
         <div class="card" style="margin-bottom: 16px;">
             <div class="flex gap">
                 @if($company->logo)
-                    <img src="{{ asset('storage/' . $company->logo) }}" alt="Logo" style="width: 80px; height: 80px; object-fit: cover; border-radius: 12px;">
+                    <img src="{{ $company->logo }}" alt="Logo" style="width: 80px; height: 80px; object-fit: cover; border-radius: 12px;">
                 @else
                     <div style="width: 80px; height: 80px; background: #E5E7EB; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
                         <i class="fas fa-store" style="font-size: 32px; color: #6B7280;"></i>

@@ -10,7 +10,7 @@
         </a>
 
         @if($company->logo)
-            <img src="{{ asset('storage/' . $company->logo) }}" alt="Logo" style="width: 100%; max-width: 300px; height: 300px; object-fit: cover; border-radius: 12px; margin: 0 auto 16px; display: block;">
+            <img src="{{ $company->logo }}" alt="Logo" style="width: 100%; max-width: 300px; height: 300px; object-fit: cover; border-radius: 12px; margin: 0 auto 16px; display: block;">
         @endif
 
         <h2 class="text-center">{{ $company->name }}</h2>
@@ -56,7 +56,7 @@
             @foreach($company->products as $product)
                 <div class="card" style="background: #F9FAFB; margin-bottom: 12px;">
                     @if($product->images->count() > 0)
-                        <img src="{{ asset('storage/' . $product->images->first()->image_path) }}" alt="Produk" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 12px;">
+                        <img src="{{ $product->images->first()->image_path }}" alt="Produk" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 12px;">
                     @endif
                     <h3>{{ $product->name }}</h3>
                     <p class="text-sm text-gray mb2">{{ $product->description }}</p>

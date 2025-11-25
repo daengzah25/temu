@@ -27,7 +27,7 @@
 
         <div class="card">
             @if ($company->logo)
-                <img src="{{ asset('storage/' . $company->logo) }}" alt="Logo"
+                <img src="{{ $company->logo }}" alt="Logo"
                     style="width: 100%; max-width: 200px; height: 200px; object-fit: cover; border-radius: 12px; margin: 0 auto 16px; display: block;">
             @endif
 

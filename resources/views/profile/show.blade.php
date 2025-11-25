@@ -18,7 +18,7 @@
             <h3 class="mb2">🏪 UMKM Saya</h3>
             <div class="flex items-center gap mb2">
                 @if($user->company->logo)
-                    <img src="{{ asset('storage/' . $user->company->logo) }}" alt="Logo" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;">
+                    <img src="{{ $user->company->logo }}" alt="Logo" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;">
                 @else
                     <div style="width: 50px; height: 50px; background: #E5E7EB; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
                         <i class="fas fa-store" style="color: #6B7280;"></i>

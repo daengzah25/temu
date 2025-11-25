@@ -38,7 +38,7 @@
         <div class="card" style="margin-bottom: 16px; border-left: 4px solid {{ $company->status === 'pending' ? '#F59E0B' : ($company->status === 'approved' ? '#10B981' : '#EF4444') }};">
             <div class="flex items-center gap mb2">
                 @if($company->logo)
-                    <img src="{{ asset('storage/' . $company->logo) }}" alt="Logo" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;">
+                    <img src="{{ $company->logo }}" alt="Logo" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;">
                 @else
                     <div style="width: 50px; height: 50px; background: #E5E7EB; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
                         <i class="fas fa-store" style="color: #6B7280;"></i>

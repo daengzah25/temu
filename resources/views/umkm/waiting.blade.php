@@ -24,7 +24,7 @@
                     <p class="mb"><strong>Alamat:</strong> {{ $company->address }}</p>
                     <p class="mb"><strong>WhatsApp:</strong> {{ $company->whatsapp }}</p>
                     @if($company->logo)
-                        <p class="mb"><strong>Logo:</strong> <img src="{{ asset('storage/' . $company->logo) }}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px; vertical-align: middle;"></p>
+                        <p class="mb"><strong>Logo:</strong> <img src="{{ $company->logo }}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px; vertical-align: middle;"></p>
                     @endif
                 </div>
             </div>

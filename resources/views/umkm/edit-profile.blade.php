@@ -42,7 +42,7 @@
 
             <label>Logo Usaha</label>
             @if($company->logo)
-                <img src="{{ asset('storage/' . $company->logo) }}" id="currentLogo" style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px; margin-bottom: 8px; display: block;">
+                <img src="{{ $company->logo }}" id="currentLogo" style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px; margin-bottom: 8px; display: block;">
             @endif
             <input type="file" name="logo" accept="image/*" onchange="previewLogo(event)">
             <img id="logoPreview" style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px; margin-top: 8px; display: none;">
