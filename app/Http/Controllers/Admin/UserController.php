@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -14,8 +15,8 @@ class UserController extends Controller
         $role = $request->get('role', 'all');
 
         $users = User::when($role !== 'all', function ($query) use ($role) {
-                $query->where('role', $role);
-            })
+            $query->where('role', $role);
+        })
             ->with('company')
             ->orderBy('created_at', 'desc')
             ->paginate(15);
@@ -56,14 +57,13 @@ class UserController extends Controller
 
         return redirect()->back()->with('success', $message);
     }
-
     // Hapus user
     public function destroy($id)
     {
         $user = User::findOrFail($id);
 
         // Jangan bisa hapus diri sendiri
-        if ($user->id === auth()->id()) {
+        if ($user->id === Auth::id()) {
             return redirect()->back()->with('error', 'Tidak bisa menghapus akun sendiri!');
         }
 
