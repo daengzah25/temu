@@ -2,6 +2,7 @@ import defaultTheme from 'tailwindcss/defaultTheme';
 
 /** @type {import('tailwindcss').Config} */
 export default {
+    darkMode: 'class', // kita kontrol via class .dark
     content: [
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './storage/framework/views/*.php',
@@ -12,19 +13,26 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Inter', 'Poppins', ...defaultTheme.fontFamily.sans],
+                sans: ['Inter', 'system-ui', 'sans-serif'],
+                display: ['Poppins', 'sans-serif'],
             },
             colors: {
-                brand: {
-                    DEFAULT: '#0f0f0f',    // gelap seperti logo
-                    accent: '#eab308',     // aksen kuning
-                    muted: '#f8f6f6',      // outline putih lembut
-                    dark: '#111111',
-                }
+                // gunakan format rgb(var(--token) / <alpha-value>) agar bisa transparansi
+                bg: 'rgb(var(--bg) / <alpha-value>)',
+                surface: 'rgb(var(--surface) / <alpha-value>)',
+                text: 'rgb(var(--text) / <alpha-value>)',
+                muted: 'rgb(var(--muted) / <alpha-value>)',
+                border: 'rgb(var(--border) / <alpha-value>)',
+                accent: 'rgb(var(--accent) / <alpha-value>)',
+                'accent-contrast': 'rgb(var(--accent-contrast) / <alpha-value>)',
+                'accent-soft': 'rgb(var(--accent-soft) / <alpha-value>)',
             },
             borderRadius: {
-                xl: '1rem'
-            }
+                lg2: '1rem',
+            },
+            boxShadow: {
+                soft: '0 6px 18px rgba(0,0,0,0.45)',
+            },
         },
     },
     plugins: [

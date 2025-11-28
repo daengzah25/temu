@@ -5,16 +5,16 @@
 @section('content')
 <div class="space-y-6">
     <!-- Profile Header -->
-    <div class="bg-white/6 border border-white/10 p-6 rounded-xl text-center">
+    <div class="bg-surface border border-border p-6 rounded-lg2 text-center">
         <div class="inline-flex items-center justify-center mb-4">
             <img 
                 src="{{ $user->avatar }}" 
                 alt="Avatar" 
-                class="w-24 h-24 rounded-full border-4 border-brand-accent object-cover"
+                class="w-24 h-24 rounded-full border-4 border-accent object-cover"
             >
         </div>
-        <h2 class="text-xl font-bold mb-2">{{ $user->name }}</h2>
-        <p class="text-sm text-white/60 mb-3">{{ $user->email }}</p>
+        <h2 class="text-xl font-bold mb-2 text-text">{{ $user->name }}</h2>
+        <p class="text-sm text-muted mb-3">{{ $user->email }}</p>
         <span class="inline-block px-4 py-1.5 rounded-full text-xs font-semibold
             {{ $user->role === 'admin' ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/50' : 
                ($user->role === 'umkm' ? 'bg-blue-500/20 text-blue-400 border border-blue-500/50' : 
@@ -24,9 +24,9 @@
     </div>
 
     @if($user->role === 'umkm' && $user->company)
-        <div class="bg-white/6 border border-white/10 p-6 rounded-xl">
-            <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
-                <svg class="w-6 h-6 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="bg-surface border border-border p-6 rounded-lg2">
+            <h3 class="text-lg font-semibold mb-4 flex items-center gap-2 text-text">
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
                 </svg>
                 UMKM Saya
@@ -39,23 +39,23 @@
                         class="w-16 h-16 rounded-lg object-cover flex-shrink-0"
                     >
                 @else
-                    <div class="w-16 h-16 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0">
-                        <svg class="w-8 h-8 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="w-16 h-16 rounded-lg bg-surface/80 flex items-center justify-center flex-shrink-0">
+                        <svg class="w-8 h-8 text-muted/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
                         </svg>
                     </div>
                 @endif
                 <div class="flex-1 min-w-0">
-                    <h3 class="font-semibold text-base mb-1 truncate">{{ $user->company->name }}</h3>
-                    <p class="text-sm text-white/60">
-                        <span class="inline-block px-2 py-0.5 bg-white/8 rounded text-xs">{{ $user->company->category }}</span>
+                    <h3 class="font-semibold text-base mb-1 truncate text-text">{{ $user->company->name }}</h3>
+                    <p class="text-sm text-muted">
+                        <span class="inline-block px-2 py-0.5 bg-surface/80 rounded text-xs">{{ $user->company->category }}</span>
                     </p>
                 </div>
             </div>
             <div class="flex gap-2">
                 <a 
                     href="{{ route('umkm.dashboard') }}" 
-                    class="flex-1 px-4 py-2.5 rounded-lg bg-brand-accent text-black font-medium hover:bg-brand-accent/90 transition text-center flex items-center justify-center gap-2"
+                    class="flex-1 px-4 py-2.5 rounded-lg bg-accent text-accent-contrast font-medium hover:opacity-90 transition text-center flex items-center justify-center gap-2"
                 >
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
@@ -76,9 +76,9 @@
     @endif
 
     <!-- Settings -->
-    <div class="bg-white/6 border border-white/10 p-6 rounded-xl">
-        <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
-            <svg class="w-6 h-6 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div class="bg-surface border border-border p-6 rounded-lg2">
+        <h3 class="text-lg font-semibold mb-4 flex items-center gap-2 text-text">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
             </svg>
@@ -88,7 +88,7 @@
             @if($user->role === 'admin')
                 <a 
                     href="{{ route('admin.dashboard') }}" 
-                    class="bg-white/5 border border-white/10 p-4 rounded-lg hover:bg-white/10 transition flex items-center gap-3"
+                    class="bg-surface/80 border border-border p-4 rounded-lg hover:bg-surface transition flex items-center gap-3"
                 >
                     <div class="flex-shrink-0 w-10 h-10 bg-yellow-500/20 rounded-lg flex items-center justify-center">
                         <svg class="w-6 h-6 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -96,10 +96,10 @@
                         </svg>
                     </div>
                     <div class="flex-1">
-                        <h3 class="font-semibold text-base">Dashboard Admin</h3>
-                        <p class="text-sm text-white/60">Kelola UMKM & user</p>
+                        <h3 class="font-semibold text-base text-text">Dashboard Admin</h3>
+                        <p class="text-sm text-muted">Kelola UMKM & user</p>
                     </div>
-                    <svg class="w-5 h-5 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-5 h-5 text-muted/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                     </svg>
                 </a>
@@ -108,7 +108,7 @@
             @if($user->role === 'umkm')
                 <a 
                     href="{{ route('products.index') }}" 
-                    class="bg-white/5 border border-white/10 p-4 rounded-lg hover:bg-white/10 transition flex items-center gap-3"
+                    class="bg-surface/80 border border-border p-4 rounded-lg hover:bg-surface transition flex items-center gap-3"
                 >
                     <div class="flex-shrink-0 w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
                         <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -116,17 +116,17 @@
                         </svg>
                     </div>
                     <div class="flex-1">
-                        <h3 class="font-semibold text-base">Produk Saya</h3>
-                        <p class="text-sm text-white/60">{{ $user->company ? $user->company->products->count() : 0 }} produk</p>
+                        <h3 class="font-semibold text-base text-text">Produk Saya</h3>
+                        <p class="text-sm text-muted">{{ $user->company ? $user->company->products->count() : 0 }} produk</p>
                     </div>
-                    <svg class="w-5 h-5 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-5 h-5 text-muted/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                     </svg>
                 </a>
 
                 <a 
                     href="{{ route('ai-promotion.index') }}" 
-                    class="bg-white/5 border border-white/10 p-4 rounded-lg hover:bg-white/10 transition flex items-center gap-3"
+                    class="bg-surface/80 border border-border p-4 rounded-lg hover:bg-surface transition flex items-center gap-3"
                 >
                     <div class="flex-shrink-0 w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center">
                         <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -134,10 +134,10 @@
                         </svg>
                     </div>
                     <div class="flex-1">
-                        <h3 class="font-semibold text-base">AI Promosi</h3>
-                        <p class="text-sm text-white/60">Generate konten otomatis</p>
+                        <h3 class="font-semibold text-base text-text">AI Promosi</h3>
+                        <p class="text-sm text-muted">Generate konten otomatis</p>
                     </div>
-                    <svg class="w-5 h-5 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-5 h-5 text-muted/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                     </svg>
                 </a>
@@ -146,7 +146,7 @@
             @if($user->role === 'visitor')
                 <a 
                     href="{{ route('bookmarks.index') }}" 
-                    class="bg-white/5 border border-white/10 p-4 rounded-lg hover:bg-white/10 transition flex items-center gap-3"
+                    class="bg-surface/80 border border-border p-4 rounded-lg hover:bg-surface transition flex items-center gap-3"
                 >
                     <div class="flex-shrink-0 w-10 h-10 bg-red-500/20 rounded-lg flex items-center justify-center">
                         <svg class="w-6 h-6 text-red-400" fill="currentColor" viewBox="0 0 24 24">
@@ -154,17 +154,17 @@
                         </svg>
                     </div>
                     <div class="flex-1">
-                        <h3 class="font-semibold text-base">Favorit Saya</h3>
-                        <p class="text-sm text-white/60">{{ $user->bookmarks->count() }} UMKM tersimpan</p>
+                        <h3 class="font-semibold text-base text-text">Favorit Saya</h3>
+                        <p class="text-sm text-muted">{{ $user->bookmarks->count() }} UMKM tersimpan</p>
                     </div>
-                    <svg class="w-5 h-5 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-5 h-5 text-muted/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                     </svg>
                 </a>
 
                 <a 
                     href="{{ route('visitor.nearby') }}" 
-                    class="bg-white/5 border border-white/10 p-4 rounded-lg hover:bg-white/10 transition flex items-center gap-3"
+                    class="bg-surface/80 border border-border p-4 rounded-lg hover:bg-surface transition flex items-center gap-3"
                 >
                     <div class="flex-shrink-0 w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
                         <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -172,10 +172,10 @@
                         </svg>
                     </div>
                     <div class="flex-1">
-                        <h3 class="font-semibold text-base">Cari UMKM</h3>
-                        <p class="text-sm text-white/60">Temukan UMKM terdekat</p>
+                        <h3 class="font-semibold text-base text-text">Cari UMKM</h3>
+                        <p class="text-sm text-muted">Temukan UMKM terdekat</p>
                     </div>
-                    <svg class="w-5 h-5 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-5 h-5 text-muted/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                     </svg>
                 </a>
@@ -184,25 +184,25 @@
     </div>
 
     <!-- Account Info -->
-    <div class="bg-white/6 border border-white/10 p-6 rounded-xl">
-        <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
-            <svg class="w-6 h-6 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div class="bg-surface border border-border p-6 rounded-lg2">
+        <h3 class="text-lg font-semibold mb-4 flex items-center gap-2 text-text">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
             Tentang Akun
         </h3>
         <div class="space-y-3 text-sm">
-            <div class="flex items-center gap-3 text-white/70">
-                <svg class="w-5 h-5 text-brand-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="flex items-center gap-3 text-muted">
+                <svg class="w-5 h-5 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                 </svg>
-                <span>Bergabung: <span class="text-white">{{ $user->created_at->format('d M Y') }}</span></span>
+                <span>Bergabung: <span class="text-text">{{ $user->created_at->format('d M Y') }}</span></span>
             </div>
-            <div class="flex items-center gap-3 text-white/70">
-                <svg class="w-5 h-5 text-brand-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="flex items-center gap-3 text-muted">
+                <svg class="w-5 h-5 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                 </svg>
-                <span>Terakhir login: <span class="text-white">{{ $user->updated_at->diffForHumans() }}</span></span>
+                <span>Terakhir login: <span class="text-text">{{ $user->updated_at->diffForHumans() }}</span></span>
             </div>
         </div>
     </div>

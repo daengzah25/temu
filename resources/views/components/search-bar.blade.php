@@ -5,12 +5,12 @@
       name="q" 
       placeholder="Cari UMKM, produk, kategori..." 
       value="{{ request('q') }}"
-      class="flex-1 px-4 py-3 rounded-lg bg-white/5 border border-white/10 placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent text-white" 
+      class="flex-1 px-4 py-3 rounded-lg bg-surface border border-border placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-text" 
     />
     <button 
       type="button" 
       id="useLocation" 
-      class="px-3 py-3 rounded-lg bg-white/8 border border-white/10 hover:bg-white/12 transition"
+      class="px-3 py-3 rounded-lg bg-surface border border-border hover:bg-surface/80 transition text-text"
       title="Gunakan Lokasi Saya"
     >
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -20,12 +20,12 @@
     </button>
     <button 
       type="submit" 
-      class="px-4 py-3 rounded-lg bg-brand-accent text-black font-medium hover:bg-brand-accent/90 transition"
+      class="px-4 py-3 rounded-lg bg-accent text-accent-contrast font-medium hover:bg-accent/90 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
     >
       Cari
     </button>
   </form>
-  <p id="locationMsg" class="text-xs mt-2 text-white/60"></p>
+  <p id="locationMsg" class="text-xs mt-2 text-muted"></p>
 </div>
 
 <script>

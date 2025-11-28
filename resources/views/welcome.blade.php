@@ -7,15 +7,20 @@
     <!-- Hero Section -->
     <div class="text-center py-8">
         <div class="inline-flex items-center justify-center mb-4">
-            <img src="/images/2.png" alt="Logo Temu UMKM" class="h-24 w-24 object-contain" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%23fff%22/%3E%3Ctext x=%2250%22 y=%2265%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22%23000%22%3ET%3C/text%3E%3C/svg%3E'">
+            <div class="dark:hidden">
+                <img src="{{ asset('images/lightlogo.png') }}" alt="Logo Temu UMKM" class="h-24 w-24 object-contain" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%23000%22/%3E%3Ctext x=%2250%22 y=%2265%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22%23fff%22%3ET%3C/text%3E%3C/svg%3E'">
+            </div>
+            <div class="hidden dark:block">
+                <img src="{{ asset('images/darklogo.png') }}" alt="Logo Temu UMKM" class="h-24 w-24 object-contain" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%23fff%22/%3E%3Ctext x=%2250%22 y=%2265%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22%23000%22%3ET%3C/text%3E%3C/svg%3E'">
+            </div>
         </div>
-        <h1 class="text-3xl font-bold mb-2">Temu</h1>
-        <p class="text-white/70 mb-6 text-lg">
+        <h1 class="text-3xl font-bold mb-2 text-text">TEmu</h1>
+        <p class="text-muted mb-6 text-lg">
             Temukan UMKM Lokal di Sekitar Anda
         </p>
 
         @guest
-            <a href="{{ route('auth.google') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-brand-accent text-black font-semibold hover:bg-brand-accent/90 transition">
+            <a href="{{ route('auth.google') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-accent text-accent-contrast font-semibold hover:bg-accent/90 transition">
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
                     <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
@@ -26,21 +31,21 @@
             </a>
         @else
             @if(Auth::user()->role === 'visitor')
-                <a href="{{ route('visitor.home') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-brand-accent text-black font-semibold hover:bg-brand-accent/90 transition">
+                <a href="{{ route('visitor.home') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-accent text-accent-contrast font-semibold hover:bg-accent/90 transition">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                     </svg>
                     Cari UMKM Terdekat
                 </a>
             @elseif(Auth::user()->role === 'umkm')
-                <a href="{{ route('umkm.dashboard') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-brand-accent text-black font-semibold hover:bg-brand-accent/90 transition">
+                <a href="{{ route('umkm.dashboard') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-accent text-accent-contrast font-semibold hover:bg-accent/90 transition">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
                     </svg>
                     Dashboard UMKM Saya
                 </a>
             @elseif(Auth::user()->role === 'admin')
-                <a href="{{ route('admin.dashboard') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-brand-accent text-black font-semibold hover:bg-brand-accent/90 transition">
+                <a href="{{ route('admin.dashboard') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-accent text-accent-contrast font-semibold hover:bg-accent/90 transition">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
                     </svg>
@@ -51,14 +56,14 @@
     </div>
 
     <!-- Features -->
-    <div class="bg-white/6 border border-white/10 p-6 rounded-xl">
+    <div class="bg-surface border border-border p-6 rounded-lg2">
         <h2 class="text-xl font-semibold mb-4 text-center flex items-center justify-center gap-2">
             <span class="text-brand-accent"></span>
             Fitur Unggulan
         </h2>
 
         <div class="space-y-3">
-            <div class="bg-white/5 border border-white/10 p-4 rounded-lg">
+            <div class="bg-white/5 border border-border p-4 rounded-lg">
                 <div class="flex items-center gap-3">
                     <div class="flex-shrink-0">
                         <svg class="w-8 h-8 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -68,12 +73,12 @@
                     </div>
                     <div>
                         <h3 class="font-semibold mb-1">Pencarian Lokasi Real-Time</h3>
-                        <p class="text-sm text-white/70">Temukan UMKM terdekat dengan GPS otomatis berdasarkan lokasi Anda saat ini</p>
+                        <p class="text-sm text-muted">Temukan UMKM terdekat dengan GPS otomatis berdasarkan lokasi Anda saat ini</p>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-white/5 border border-white/10 p-4 rounded-lg">
+            <div class="bg-white/5 border border-border p-4 rounded-lg">
                 <div class="flex items-center gap-3">
                     <div class="flex-shrink-0">
                         <svg class="w-8 h-8 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -82,12 +87,12 @@
                     </div>
                     <div>
                         <h3 class="font-semibold mb-1">AI Promosi Otomatis</h3>
-                        <p class="text-sm text-white/70">Generate konten promosi untuk Instagram, WhatsApp, dan Facebook dengan teknologi AI</p>
+                        <p class="text-sm text-muted">Generate konten promosi untuk Instagram, WhatsApp, dan Facebook dengan teknologi AI</p>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-white/5 border border-white/10 p-4 rounded-lg">
+            <div class="bg-white/5 border border-border p-4 rounded-lg">
                 <div class="flex items-center gap-3">
                     <div class="flex-shrink-0">
                         <svg class="w-8 h-8 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -96,12 +101,12 @@
                     </div>
                     <div>
                         <h3 class="font-semibold mb-1">Simpan Favorit</h3>
-                        <p class="text-sm text-white/70">Bookmark UMKM favorit Anda untuk akses cepat kapan saja</p>
+                        <p class="text-sm text-muted">Bookmark UMKM favorit Anda untuk akses cepat kapan saja</p>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-white/5 border border-white/10 p-4 rounded-lg">
+            <div class="bg-white/5 border border-border p-4 rounded-lg">
                 <div class="flex items-center gap-3">
                     <div class="flex-shrink-0">
                         <svg class="w-8 h-8 text-brand-accent" fill="currentColor" viewBox="0 0 24 24">
@@ -110,7 +115,7 @@
                     </div>
                     <div>
                         <h3 class="font-semibold mb-1">Kontak Langsung</h3>
-                        <p class="text-sm text-white/70">Hubungi pemilik UMKM langsung melalui WhatsApp dengan satu klik</p>
+                        <p class="text-sm text-muted">Hubungi pemilik UMKM langsung melalui WhatsApp dengan satu klik</p>
                     </div>
                 </div>
             </div>
@@ -118,7 +123,7 @@
     </div>
 
     <!-- How It Works -->
-    <div class="bg-white/6 border border-white/10 p-6 rounded-xl">
+    <div class="bg-surface border border-border p-6 rounded-lg2">
         <h2 class="text-xl font-semibold mb-4 text-center flex items-center justify-center gap-2">
             <span class="text-brand-accent"></span>
             Cara Menggunakan
@@ -126,33 +131,33 @@
 
         <div class="space-y-4">
             <div class="flex items-center gap-3">
-                <div class="flex-shrink-0 w-10 h-10 bg-brand-accent text-black rounded-full flex items-center justify-center font-bold text-lg">1</div>
+                <div class="flex-shrink-0 w-10 h-10 bg-accent text-accent-contrast rounded-full flex items-center justify-center font-bold text-lg">1</div>
                 <div>
                     <h3 class="font-semibold mb-1">Login dengan Google</h3>
-                    <p class="text-sm text-white/70">Masuk menggunakan akun Google Anda, aman dan cepat</p>
+                    <p class="text-sm text-muted">Masuk menggunakan akun Google Anda, aman dan cepat</p>
                 </div>
             </div>
 
             <div class="flex items-center gap-3">
-                <div class="flex-shrink-0 w-10 h-10 bg-brand-accent text-black rounded-full flex items-center justify-center font-bold text-lg">2</div>
+                <div class="flex-shrink-0 w-10 h-10 bg-accent text-accent-contrast rounded-full flex items-center justify-center font-bold text-lg">2</div>
                 <div>
                     <h3 class="font-semibold mb-1">Pilih Peran Anda</h3>
-                    <p class="text-sm text-white/70">Sebagai Pengunjung untuk cari UMKM atau sebagai Pemilik UMKM untuk promosi</p>
+                    <p class="text-sm text-muted">Sebagai Pengunjung untuk cari UMKM atau sebagai Pemilik UMKM untuk promosi</p>
                 </div>
             </div>
 
             <div class="flex items-center gap-3">
-                <div class="flex-shrink-0 w-10 h-10 bg-brand-accent text-black rounded-full flex items-center justify-center font-bold text-lg">3</div>
+                <div class="flex-shrink-0 w-10 h-10 bg-accent text-accent-contrast rounded-full flex items-center justify-center font-bold text-lg">3</div>
                 <div>
                     <h3 class="font-semibold mb-1">Mulai Jelajahi</h3>
-                    <p class="text-sm text-white/70">Temukan UMKM terdekat atau kelola bisnis Anda dengan mudah</p>
+                    <p class="text-sm text-muted">Temukan UMKM terdekat atau kelola bisnis Anda dengan mudah</p>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Stats -->
-    <div class="bg-white/6 border border-white/10 p-6 rounded-xl text-center">
+    <div class="bg-surface border border-border p-6 rounded-lg2 text-center">
         <h2 class="text-xl font-semibold mb-4 flex items-center justify-center gap-2">
             <span class="text-brand-accent"></span>
             Temu dalam Angka
@@ -160,21 +165,21 @@
         <div class="grid grid-cols-3 gap-4">
             <div>
                 <h2 class="text-brand-accent text-3xl font-bold mb-1">{{ \App\Models\Company::where('status', 'approved')->count() }}+</h2>
-                <p class="text-sm text-white/70">UMKM Terdaftar</p>
+                <p class="text-sm text-muted">UMKM Terdaftar</p>
             </div>
             <div>
                 <h2 class="text-brand-accent text-3xl font-bold mb-1">{{ \App\Models\User::where('role', 'visitor')->count() }}+</h2>
-                <p class="text-sm text-white/70">Pengguna Aktif</p>
+                <p class="text-sm text-muted">Pengguna Aktif</p>
             </div>
             <div>
                 <h2 class="text-brand-accent text-3xl font-bold mb-1">{{ \App\Models\Product::count() }}+</h2>
-                <p class="text-sm text-white/70">Produk UMKM</p>
+                <p class="text-sm text-muted">Produk UMKM</p>
             </div>
         </div>
     </div>
 
     <!-- Team -->
-    <div class="bg-white/6 border border-white/10 p-6 rounded-xl">
+    <div class="bg-surface border border-border p-6 rounded-lg2">
         <h2 class="text-xl font-semibold mb-4 text-center flex items-center justify-center gap-2">
             <span class="text-brand-accent"></span>
             Tim Pengembang
@@ -190,7 +195,7 @@
                     </div>
                     <div>
                         <h3 class="font-semibold">Daeng</h3>
-                        <p class="text-sm text-white/70">Project Manager, Fullstack Developer</p>
+                        <p class="text-sm text-muted">Project Manager, Fullstack Developer</p>
                     </div>
                 </div>
             </div>
@@ -204,7 +209,7 @@
                     </div>
                     <div>
                         <h3 class="font-semibold">Dafong</h3>
-                        <p class="text-sm text-white/70">Frontend Developer</p>
+                        <p class="text-sm text-muted">Frontend Developer</p>
                     </div>
                 </div>
             </div>
@@ -218,7 +223,7 @@
                     </div>
                     <div>
                         <h3 class="font-semibold">Adhwaa</h3>
-                        <p class="text-sm text-white/70">Backend Developer</p>
+                        <p class="text-sm text-muted">Backend Developer</p>
                     </div>
                 </div>
             </div>
@@ -232,7 +237,7 @@
                     </div>
                     <div>
                         <h3 class="font-semibold">Safutra</h3>
-                        <p class="text-sm text-white/70">Fullstack Developer</p>
+                        <p class="text-sm text-muted">Fullstack Developer</p>
                     </div>
                 </div>
             </div>
@@ -240,8 +245,8 @@
     </div>
 
     <!-- Footer -->
-    <div class="bg-white/6 border border-white/10 p-6 rounded-xl text-center">
-        <p class="text-sm text-white/70">
+    <div class="bg-surface border border-border p-6 rounded-lg2 text-center">
+        <p class="text-sm text-muted">
             © 2025 Temu. Platform UMKM Indonesia.<br>
             Dibuat dengan ❤️ untuk mendukung UMKM lokal
         </p>

@@ -5,16 +5,16 @@
 @section('content')
 <div class="space-y-6">
     <!-- Header -->
-    <div class="bg-white/6 border border-white/10 p-6 rounded-xl text-center">
+    <div class="bg-surface border border-border p-6 rounded-lg2 text-center">
         <div class="inline-flex items-center justify-center mb-4">
             <img 
                 src="{{ Auth::user()->avatar }}" 
                 alt="Avatar" 
-                class="w-20 h-20 rounded-full border-4 border-brand-accent object-cover"
+                class="w-20 h-20 rounded-full border-4 border-accent object-cover"
             >
         </div>
-        <h2 class="text-xl font-bold mb-2">Halo, {{ Auth::user()->name }}!</h2>
-        <p class="text-sm text-white/60">Anda ingin menggunakan Temu sebagai:</p>
+        <h2 class="text-xl font-bold mb-2 text-text">Halo, {{ Auth::user()->name }}!</h2>
+        <p class="text-sm text-muted">Anda ingin menggunakan Temu sebagai:</p>
     </div>
     
     <form action="{{ route('role.update') }}" method="POST">
@@ -22,7 +22,7 @@
         
         <!-- UMKM Option -->
         <div 
-            class="role-card bg-white/6 border-2 border-transparent p-6 rounded-xl cursor-pointer hover:bg-white/10 transition-all"
+            class="role-card bg-white/6 border-2 border-transparent p-6 rounded-lg2 cursor-pointer hover:bg-surface/80 transition-all"
             onclick="selectRole('umkm', this)"
             data-role="umkm"
         >
@@ -33,12 +33,12 @@
                     </svg>
                 </div>
                 <div class="flex-1 min-w-0">
-                    <h3 class="font-semibold text-lg mb-1">Pemilik UMKM</h3>
-                    <p class="text-sm text-white/60">Daftarkan usaha, kelola produk, dan gunakan AI untuk promosi</p>
+                    <h3 class="font-semibold text-lg mb-1 text-text">Pemilik UMKM</h3>
+                    <p class="text-sm text-muted">Daftarkan usaha, kelola produk, dan gunakan AI untuk promosi</p>
                 </div>
                 <div class="flex-shrink-0">
-                    <div class="w-6 h-6 rounded-full border-2 border-white/40 flex items-center justify-center">
-                        <div class="w-3 h-3 rounded-full bg-brand-accent hidden"></div>
+                    <div class="w-6 h-6 rounded-full border-2 border-border flex items-center justify-center">
+                        <div class="w-3 h-3 rounded-full bg-accent hidden"></div>
                     </div>
                 </div>
                 <input type="radio" name="role" value="umkm" class="hidden">
@@ -47,7 +47,7 @@
         
         <!-- Visitor Option -->
         <div 
-            class="role-card bg-white/6 border-2 border-transparent p-6 rounded-xl cursor-pointer hover:bg-white/10 transition-all"
+            class="role-card bg-white/6 border-2 border-transparent p-6 rounded-lg2 cursor-pointer hover:bg-surface/80 transition-all"
             onclick="selectRole('visitor', this)"
             data-role="visitor"
         >
@@ -58,12 +58,12 @@
                     </svg>
                 </div>
                 <div class="flex-1 min-w-0">
-                    <h3 class="font-semibold text-lg mb-1">Pengunjung</h3>
-                    <p class="text-sm text-white/60">Cari UMKM terdekat, simpan favorit, dan hubungi via WhatsApp</p>
+                    <h3 class="font-semibold text-lg mb-1 text-text">Pengunjung</h3>
+                    <p class="text-sm text-muted">Cari UMKM terdekat, simpan favorit, dan hubungi via WhatsApp</p>
                 </div>
                 <div class="flex-shrink-0">
-                    <div class="w-6 h-6 rounded-full border-2 border-white/40 flex items-center justify-center">
-                        <div class="w-3 h-3 rounded-full bg-brand-accent hidden"></div>
+                    <div class="w-6 h-6 rounded-full border-2 border-border flex items-center justify-center">
+                        <div class="w-3 h-3 rounded-full bg-accent hidden"></div>
                     </div>
                 </div>
                 <input type="radio" name="role" value="visitor" class="hidden">
@@ -74,7 +74,7 @@
             type="submit" 
             id="submitBtn" 
             disabled 
-            class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white/40 cursor-not-allowed transition font-medium"
+            class="w-full px-4 py-3 rounded-lg bg-surface/80 border border-border text-muted/60 cursor-not-allowed transition font-medium"
         >
             Lanjutkan
         </button>
@@ -86,7 +86,7 @@
 function selectRole(role, element) {
     // Reset all cards
     document.querySelectorAll('.role-card').forEach(card => {
-        card.classList.remove('border-brand-accent', 'bg-white/10');
+        card.classList.remove('border-accent', 'bg-surface/80');
         card.classList.add('border-transparent');
         
         // Hide radio indicator
@@ -104,7 +104,7 @@ function selectRole(role, element) {
     
     // Select current card
     element.classList.remove('border-transparent');
-    element.classList.add('border-brand-accent', 'bg-white/10');
+    element.classList.add('border-accent', 'bg-surface/80');
     
     // Show radio indicator
     const indicator = element.querySelector('.w-3');
@@ -122,8 +122,8 @@ function selectRole(role, element) {
     const btn = document.getElementById('submitBtn');
     if (btn) {
         btn.disabled = false;
-        btn.classList.remove('bg-white/10', 'border-white/20', 'text-white/40', 'cursor-not-allowed');
-        btn.classList.add('bg-brand-accent', 'text-black', 'hover:bg-brand-accent/90', 'cursor-pointer');
+        btn.classList.remove('bg-surface/80', 'border-border', 'text-muted/60', 'cursor-not-allowed');
+        btn.classList.add('bg-accent', 'text-accent-contrast', 'hover:opacity-90', 'cursor-pointer');
     }
 }
 </script>
