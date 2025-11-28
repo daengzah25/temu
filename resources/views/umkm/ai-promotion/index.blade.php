@@ -66,11 +66,11 @@
             </div>
         </div>
 
-        <button type="submit" class="w-full px-6 py-4 rounded-lg bg-accent text-accent-contrast font-semibold hover:bg-accent/90 transition flex items-center justify-center gap-2" id="generateBtn">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <button type="submit" class="w-full px-6 py-4 rounded-lg bg-accent text-accent-contrast font-semibold hover:bg-accent/90 transition flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed" id="generateBtn" aria-label="Generate konten AI untuk promosi">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
             </svg>
-            Generate Konten AI
+            <span>Generate Konten AI</span>
         </button>
     </form>
 
@@ -173,17 +173,47 @@ document.getElementById('aiForm').addEventListener('submit', async function(e) {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 90000);
 
-        const response = await fetch('{{ secure_url(route("ai-promotion.generate", [], false)) }}', {
+        const response = await fetch('{{ route("ai-promotion.generate") }}', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Accept': 'application/json'
             },
             body: JSON.stringify(data),
             signal: controller.signal
         });
 
         clearTimeout(timeoutId);
+
+        // Check if response is ok
+        if (!response.ok) {
+            let errorMessage = `Server error: ${response.status} ${response.statusText}`;
+            const contentType = response.headers.get('content-type');
+            
+            try {
+                if (contentType && contentType.includes('application/json')) {
+                    const errorData = await response.json();
+                    errorMessage = errorData.error || errorData.message || errorMessage;
+                } else {
+                    // If not JSON, try to get text
+                    const errorText = await response.text();
+                    if (errorText && errorText.trim()) {
+                        errorMessage = `Error ${response.status}: ${errorText.substring(0, 200)}`;
+                    }
+                }
+            } catch (e) {
+                // Keep default error message if parsing fails
+                console.error('Error parsing response:', e);
+            }
+            throw new Error(errorMessage);
+        }
+
+        // Validate response is JSON
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+            throw new Error('Server returned non-JSON response');
+        }
 
         const result = await response.json();
 
@@ -196,6 +226,8 @@ document.getElementById('aiForm').addEventListener('submit', async function(e) {
     } catch (error) {
         if (error.name === 'AbortError') {
             showToast('Request timeout. Model mungkin masih loading, coba lagi dalam 20 detik.', 'error');
+        } else if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+            showToast('Gagal terhubung ke server. Periksa koneksi internet Anda atau coba lagi nanti.', 'error');
         } else {
             showToast('Gagal generate konten: ' + error.message, 'error');
         }
@@ -316,11 +348,12 @@ async function savePromotion(platform, promptData, result) {
     const data = JSON.parse(promptData);
 
     try {
-        const response = await fetch('{{ secure_url(route("ai-promotion.generate", [], false)) }}', {
+        const response = await fetch('{{ route("ai-promotion.store") }}', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Accept': 'application/json'
             },
             body: JSON.stringify({
                 product_id: data.product_id || null,
@@ -329,6 +362,35 @@ async function savePromotion(platform, promptData, result) {
                 result: result
             })
         });
+
+        // Check if response is ok
+        if (!response.ok) {
+            let errorMessage = `Server error: ${response.status} ${response.statusText}`;
+            const contentType = response.headers.get('content-type');
+            
+            try {
+                if (contentType && contentType.includes('application/json')) {
+                    const errorData = await response.json();
+                    errorMessage = errorData.error || errorData.message || errorMessage;
+                } else {
+                    // If not JSON, try to get text
+                    const errorText = await response.text();
+                    if (errorText && errorText.trim()) {
+                        errorMessage = `Error ${response.status}: ${errorText.substring(0, 200)}`;
+                    }
+                }
+            } catch (e) {
+                // Keep default error message if parsing fails
+                console.error('Error parsing response:', e);
+            }
+            throw new Error(errorMessage);
+        }
+
+        // Validate response is JSON
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+            throw new Error('Server returned non-JSON response');
+        }
 
         const res = await response.json();
 
@@ -340,7 +402,11 @@ async function savePromotion(platform, promptData, result) {
         }
 
     } catch (error) {
-        showToast('Gagal menyimpan: ' + error.message, 'error');
+        if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+            showToast('Gagal terhubung ke server. Periksa koneksi internet Anda atau coba lagi nanti.', 'error');
+        } else {
+            showToast('Gagal menyimpan: ' + error.message, 'error');
+        }
     }
 }
 
