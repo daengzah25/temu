@@ -6,26 +6,7 @@
   <meta name="description" content="Platform Temu - Temukan UMKM Terdekat">
   <meta name="color-scheme" content="dark light">
   <title>@yield('title', 'Temu UMKM')</title>
-  @php
-    $manifestPath = public_path('build/manifest.json');
-    $manifestExists = file_exists($manifestPath);
-    
-    if ($manifestExists) {
-      $manifest = json_decode(file_get_contents($manifestPath), true);
-      $cssFile = $manifest['resources/css/app.css']['file'] ?? 'assets/app-BcABIbwg.css';
-      $jsFile = $manifest['resources/js/app.js']['file'] ?? 'assets/app-BWviUBFN.js';
-    } else {
-      $cssFile = 'assets/app-BcABIbwg.css';
-      $jsFile = 'assets/app-BWviUBFN.js';
-    }
-  @endphp
-  @if($manifestExists)
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-  @else
-    {{-- Fallback jika manifest tidak ada atau Vite gagal --}}
-    <link rel="stylesheet" href="{{ asset('build/' . $cssFile) }}">
-    <script type="module" src="{{ asset('build/' . $jsFile) }}"></script>
-  @endif
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
   @stack('styles')
 </head>
 <body class="bg-bg text-text min-h-screen">
