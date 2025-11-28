@@ -3,63 +3,111 @@
 @section('title', 'Menunggu Persetujuan - Temu')
 
 @section('content')
-<div class="container">
+<div class="space-y-6">
     @if(session('success'))
-        <div class="card" style="background: #D1FAE5; border-left: 4px solid #10B981;">
-            <p style="color: #065F46;">{{ session('success') }}</p>
+        <div class="p-4 rounded-lg bg-green-500/20 border border-green-500/30">
+            <p class="text-green-100">{{ session('success') }}</p>
         </div>
     @endif
 
     @if($company->status === 'pending')
-        <div class="card text-center">
-            <i class="fas fa-clock" style="font-size: 64px; color: #F59E0B; margin-bottom: 16px;"></i>
-            <h2>Menunggu Persetujuan Admin</h2>
-            <p class="text-gray mb3">Pendaftaran UMKM Anda sedang ditinjau oleh admin. Estimasi waktu: 1-2 hari kerja.</p>
+        <div class="bg-white/6 border border-white/10 p-6 rounded-xl text-center">
+            <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-yellow-500/20 mb-4">
+                <svg class="w-10 h-10 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+            </div>
+            <h2 class="text-2xl font-bold mb-2">Menunggu Persetujuan Admin</h2>
+            <p class="text-white/60 mb-6">Pendaftaran UMKM Anda sedang ditinjau oleh admin. Estimasi waktu: 1-2 hari kerja.</p>
 
-            <div class="card" style="background: #FEF3C7; text-align: left;">
-                <h3 class="mb2"><i class="fas fa-info-circle" style="color: #F59E0B;"></i> Data yang Diajukan:</h3>
-                <div class="text-sm">
-                    <p class="mb"><strong>Nama Usaha:</strong> {{ $company->name }}</p>
-                    <p class="mb"><strong>Kategori:</strong> {{ $company->category }}</p>
-                    <p class="mb"><strong>Alamat:</strong> {{ $company->address }}</p>
-                    <p class="mb"><strong>WhatsApp:</strong> {{ $company->whatsapp }}</p>
+            <div class="bg-yellow-500/10 border border-yellow-500/20 p-4 rounded-lg text-left mb-6">
+                <h3 class="font-semibold mb-3 flex items-center gap-2 text-yellow-400">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Data yang Diajukan:
+                </h3>
+                <div class="space-y-2 text-sm text-white/80">
+                    <p><strong class="text-white">Nama Usaha:</strong> {{ $company->name }}</p>
+                    <p><strong class="text-white">Kategori:</strong> {{ $company->category }}</p>
+                    <p><strong class="text-white">Alamat:</strong> {{ $company->address }}</p>
+                    <p><strong class="text-white">WhatsApp:</strong> {{ $company->whatsapp }}</p>
                     @if($company->logo)
-                        <p class="mb"><strong>Logo:</strong> <img src="{{ $company->logo }}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px; vertical-align: middle;"></p>
+                        <div class="flex items-center gap-2 mt-2">
+                            <strong class="text-white">Logo:</strong>
+                            <img src="{{ $company->logo }}" class="w-12 h-12 rounded-lg object-cover">
+                        </div>
                     @endif
                 </div>
             </div>
         </div>
     @elseif($company->status === 'rejected')
-        <div class="card text-center">
-            <i class="fas fa-times-circle" style="font-size: 64px; color: #EF4444; margin-bottom: 16px;"></i>
-            <h2 style="color: #EF4444;">Pendaftaran Ditolak</h2>
-            <p class="text-gray mb3">Mohon maaf, pendaftaran UMKM Anda belum dapat disetujui.</p>
+        <div class="bg-white/6 border border-white/10 p-6 rounded-xl text-center">
+            <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-red-500/20 mb-4">
+                <svg class="w-10 h-10 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+            </div>
+            <h2 class="text-2xl font-bold mb-2 text-red-400">Pendaftaran Ditolak</h2>
+            <p class="text-white/60 mb-6">Mohon maaf, pendaftaran UMKM Anda belum dapat disetujui.</p>
 
-            <div class="card" style="background: #FEE2E2; text-align: left;">
-                <h3 class="mb2"><i class="fas fa-exclamation-triangle" style="color: #EF4444;"></i> Alasan Penolakan:</h3>
-                <p class="text-sm">{{ $company->rejection_reason ?? 'Tidak ada alasan spesifik.' }}</p>
+            <div class="bg-red-500/10 border border-red-500/20 p-4 rounded-lg text-left mb-6">
+                <h3 class="font-semibold mb-2 flex items-center gap-2 text-red-400">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                    </svg>
+                    Alasan Penolakan:
+                </h3>
+                <p class="text-sm text-white/80">{{ $company->rejection_reason ?? 'Tidak ada alasan spesifik.' }}</p>
             </div>
 
-            <a href="{{ route('umkm.register.form') }}" class="btn btn-primary btn-block mt2">
-                <i class="fas fa-edit"></i> Perbaiki & Daftar Ulang
+            <a href="{{ route('umkm.register.form') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-brand-accent text-black font-semibold hover:bg-brand-accent/90 transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                </svg>
+                Perbaiki & Daftar Ulang
             </a>
         </div>
     @endif
 
-    <div class="card">
-        <h3 class="mb2">Sementara Menunggu, Anda Bisa:</h3>
-        <div class="text-sm text-gray">
-            <p class="mb">📱 Siapkan foto produk berkualitas</p>
-            <p class="mb">📝 Tulis deskripsi produk yang menarik</p>
-            <p class="mb">💡 Pikirkan strategi promosi Anda</p>
-            <p>✨ Pelajari fitur AI Promosi yang akan tersedia</p>
+    <div class="bg-white/6 border border-white/10 p-6 rounded-xl">
+        <h3 class="font-semibold mb-4">Sementara Menunggu, Anda Bisa:</h3>
+        <div class="space-y-3 text-sm text-white/70">
+            <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-brand-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+                <span>Siapkan foto produk berkualitas</span>
+            </div>
+            <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-brand-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                </svg>
+                <span>Tulis deskripsi produk yang menarik</span>
+            </div>
+            <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-brand-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                </svg>
+                <span>Pikirkan strategi promosi Anda</span>
+            </div>
+            <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-brand-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                </svg>
+                <span>Pelajari fitur AI Promosi yang akan tersedia</span>
+            </div>
         </div>
     </div>
 
     <form action="{{ route('logout') }}" method="POST">
         @csrf
-        <button type="submit" class="btn btn-block" style="background: #6B7280; color: white;">
-            <i class="fas fa-sign-out-alt"></i> Keluar
+        <button type="submit" class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 hover:bg-white/15 transition text-center flex items-center justify-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+            </svg>
+            Keluar
         </button>
     </form>
 </div>

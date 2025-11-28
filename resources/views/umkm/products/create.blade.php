@@ -3,50 +3,132 @@
 @section('title', 'Tambah Produk - Temu')
 
 @section('content')
-<div class="container">
-    <div class="card">
-        <a href="{{ route('products.index') }}" class="text-blue text-sm mb2" style="display: inline-block;">
-            <i class="fas fa-arrow-left"></i> Kembali
+<div class="space-y-6">
+    <!-- Header -->
+    <div class="bg-white/6 border border-white/10 p-6 rounded-xl">
+        <a 
+            href="{{ route('products.index') }}" 
+            class="inline-flex items-center gap-2 text-sm text-white/60 hover:text-white transition mb-4"
+        >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+            </svg>
+            Kembali
         </a>
-        <h2><i class="fas fa-plus-circle text-blue"></i> Tambah Produk Baru</h2>
+        <h2 class="text-xl font-bold flex items-center gap-2">
+            <svg class="w-6 h-6 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+            </svg>
+            Tambah Produk Baru
+        </h2>
     </div>
 
     @if($errors->any())
-        <div class="card" style="background: #FEE2E2; border-left: 4px solid #EF4444;">
+        <div class="p-4 rounded-lg bg-red-500/20 border border-red-500/30">
             @foreach($errors->all() as $error)
-                <p style="color: #991B1B; font-size: 14px;" class="mb">• {{ $error }}</p>
+                <p class="text-red-100 text-sm mb-1">• {{ $error }}</p>
             @endforeach
         </div>
     @endif
 
-    <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
         @csrf
 
-        <div class="card">
-            <h3 class="mb2">Informasi Produk</h3>
+        <!-- Product Information -->
+        <div class="bg-white/6 border border-white/10 p-6 rounded-xl">
+            <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                <svg class="w-5 h-5 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                Informasi Produk
+            </h3>
 
-            <label>Nama Produk *</label>
-            <input type="text" name="name" value="{{ old('name') }}" placeholder="Contoh: Kopi Arabika Premium" required>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-white/80 mb-2">Nama Produk *</label>
+                    <input 
+                        type="text" 
+                        name="name" 
+                        value="{{ old('name') }}" 
+                        placeholder="Contoh: Kopi Arabika Premium" 
+                        required
+                        class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent"
+                    >
+                </div>
 
-            <label>Deskripsi</label>
-            <textarea name="description" rows="3" placeholder="Ceritakan tentang produk Anda...">{{ old('description') }}</textarea>
+                <div>
+                    <label class="block text-sm font-medium text-white/80 mb-2">Deskripsi</label>
+                    <textarea 
+                        name="description" 
+                        rows="3" 
+                        placeholder="Ceritakan tentang produk Anda..."
+                        class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent resize-none"
+                    >{{ old('description') }}</textarea>
+                </div>
 
-            <label>Harga *</label>
-            <input type="number" name="price" value="{{ old('price') }}" placeholder="50000" required min="0" step="100">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-white/80 mb-2">Harga *</label>
+                        <input 
+                            type="number" 
+                            name="price" 
+                            value="{{ old('price') }}" 
+                            placeholder="50000" 
+                            required 
+                            min="0" 
+                            step="100"
+                            class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent"
+                        >
+                    </div>
 
-            <label>Stok *</label>
-            <input type="number" name="stock" value="{{ old('stock') }}" placeholder="100" required min="0">
+                    <div>
+                        <label class="block text-sm font-medium text-white/80 mb-2">Stok *</label>
+                        <input 
+                            type="number" 
+                            name="stock" 
+                            value="{{ old('stock') }}" 
+                            placeholder="100" 
+                            required 
+                            min="0"
+                            class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent"
+                        >
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="card">
-            <h3 class="mb2">Foto Produk (Max 5 foto)</h3>
-            <input type="file" name="images[]" accept="image/*" multiple onchange="previewImages(event)" id="imageInput">
+        <!-- Product Images -->
+        <div class="bg-white/6 border border-white/10 p-6 rounded-xl">
+            <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                <svg class="w-5 h-5 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                Foto Produk (Max 5 foto)
+            </h3>
+            
+            <label class="block">
+                <input 
+                    type="file" 
+                    name="images[]" 
+                    accept="image/*" 
+                    multiple 
+                    onchange="previewImages(event)" 
+                    id="imageInput"
+                    class="block w-full text-sm text-white/60 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-brand-accent file:text-black hover:file:bg-brand-accent/90 cursor-pointer"
+                >
+            </label>
 
-            <div id="imagePreview" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px;"></div>
+            <div id="imagePreview" class="grid grid-cols-2 gap-4 mt-4"></div>
         </div>
 
-        <button type="submit" class="btn btn-primary btn-block">
-            <i class="fas fa-save"></i> Simpan Produk
+        <button 
+            type="submit" 
+            class="w-full px-4 py-3 rounded-lg bg-brand-accent text-black font-semibold hover:bg-brand-accent/90 transition flex items-center justify-center gap-2"
+        >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            Simpan Produk
         </button>
     </form>
 </div>
@@ -69,10 +151,10 @@ function previewImages(event) {
         const reader = new FileReader();
         reader.onload = function(e) {
             const div = document.createElement('div');
-            div.style.cssText = 'position: relative;';
+            div.className = 'relative';
             div.innerHTML = `
-                <img src="${e.target.result}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px;">
-                <span style="position: absolute; top: 8px; right: 8px; background: #1F2937; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Foto ${index + 1}</span>
+                <img src="${e.target.result}" class="w-full h-40 object-cover rounded-lg">
+                <span class="absolute top-2 right-2 bg-black/60 text-white px-2 py-1 rounded text-xs">Foto ${index + 1}</span>
             `;
             preview.appendChild(div);
         }

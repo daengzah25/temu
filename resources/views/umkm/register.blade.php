@@ -3,79 +3,129 @@
 @section('title', 'Daftar UMKM - Temu')
 
 @section('content')
-<div class="container">
-    <div class="card">
-        <h2><i class="fas fa-store text-blue"></i> Daftar UMKM Anda</h2>
-        <p class="text-sm text-gray mb2">Lengkapi data usaha Anda untuk tampil di platform Temu</p>
+<div class="space-y-6">
+    <div class="bg-white/6 border border-white/10 p-6 rounded-xl">
+        <h2 class="text-xl font-bold flex items-center gap-2 mb-2">
+            <svg class="w-6 h-6 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+            </svg>
+            Daftar UMKM Anda
+        </h2>
+        <p class="text-sm text-white/60">Lengkapi data usaha Anda untuk tampil di platform Temu</p>
     </div>
 
     @if ($errors->any())
-        <div class="card" style="background: #FEE2E2; border-left: 4px solid #EF4444;">
+        <div class="p-4 rounded-lg bg-red-500/20 border border-red-500/30">
             @foreach ($errors->all() as $error)
-                <p style="color: #991B1B; font-size: 14px;" class="mb">• {{ $error }}</p>
+                <p class="text-red-100 text-sm mb-1">• {{ $error }}</p>
             @endforeach
         </div>
     @endif
 
-    <form action="{{ route('umkm.register') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('umkm.register') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
         @csrf
 
-        <div class="card">
-            <h3 class="mb2">Informasi Dasar</h3>
+        <div class="bg-white/6 border border-white/10 p-6 rounded-xl">
+            <h3 class="font-semibold mb-4 flex items-center gap-2">
+                <svg class="w-5 h-5 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                Informasi Dasar
+            </h3>
 
-            <label>Nama Usaha *</label>
-            <input type="text" name="name" value="{{ old('name') }}" placeholder="Contoh: Warung Makan Ibu Siti" required>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Nama Usaha *</label>
+                    <input type="text" name="name" value="{{ old('name') }}" placeholder="Contoh: Warung Makan Ibu Siti" required class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent text-white placeholder:text-white/40">
+                </div>
 
-            <label>Kategori *</label>
-            <select name="category" required>
-                <option value="">Pilih Kategori</option>
-                <option value="Makanan & Minuman" {{ old('category') == 'Makanan & Minuman' ? 'selected' : '' }}>Makanan & Minuman</option>
-                <option value="Fashion" {{ old('category') == 'Fashion' ? 'selected' : '' }}>Fashion</option>
-                <option value="Jasa" {{ old('category') == 'Jasa' ? 'selected' : '' }}>Jasa</option>
-                <option value="Kerajinan" {{ old('category') == 'Kerajinan' ? 'selected' : '' }}>Kerajinan</option>
-                <option value="Elektronik" {{ old('category') == 'Elektronik' ? 'selected' : '' }}>Elektronik</option>
-                <option value="Lainnya" {{ old('category') == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
-            </select>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Kategori *</label>
+                    <select name="category" required class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent text-white">
+                        <option value="">Pilih Kategori</option>
+                        <option value="Makanan & Minuman" {{ old('category') == 'Makanan & Minuman' ? 'selected' : '' }}>Makanan & Minuman</option>
+                        <option value="Fashion" {{ old('category') == 'Fashion' ? 'selected' : '' }}>Fashion</option>
+                        <option value="Jasa" {{ old('category') == 'Jasa' ? 'selected' : '' }}>Jasa</option>
+                        <option value="Kerajinan" {{ old('category') == 'Kerajinan' ? 'selected' : '' }}>Kerajinan</option>
+                        <option value="Elektronik" {{ old('category') == 'Elektronik' ? 'selected' : '' }}>Elektronik</option>
+                        <option value="Lainnya" {{ old('category') == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
+                    </select>
+                </div>
 
-            <label>Logo Usaha (Opsional)</label>
-            <input type="file" name="logo" accept="image/*" onchange="previewLogo(event)">
-            <img id="logoPreview" style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px; margin-top: 8px; display: none;">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Logo Usaha (Opsional)</label>
+                    <input type="file" name="logo" accept="image/*" onchange="previewLogo(event)" class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-brand-accent file:text-black hover:file:bg-brand-accent/90">
+                    <img id="logoPreview" class="w-24 h-24 rounded-lg object-cover mt-3 hidden">
+                </div>
 
-            <label>Deskripsi Singkat</label>
-            <textarea name="description" rows="3" placeholder="Ceritakan tentang usaha Anda...">{{ old('description') }}</textarea>
-        </div>
-
-        <div class="card">
-            <h3 class="mb2">Lokasi Usaha</h3>
-
-            <label>Alamat Lengkap *</label>
-            <textarea name="address" rows="2" placeholder="Jl. Merdeka No. 123, Bandung" required>{{ old('address') }}</textarea>
-
-            <label>Koordinat GPS *</label>
-            <div class="flex gap" style="margin-bottom: 16px;">
-                <input type="text" name="latitude" id="latitude" value="{{ old('latitude') }}" placeholder="Latitude" required style="flex: 1; margin-bottom: 0;">
-                <input type="text" name="longitude" id="longitude" value="{{ old('longitude') }}" placeholder="Longitude" required style="flex: 1; margin-bottom: 0;">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Deskripsi Singkat</label>
+                    <textarea name="description" rows="3" placeholder="Ceritakan tentang usaha Anda..." class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent text-white placeholder:text-white/40 resize-none">{{ old('description') }}</textarea>
+                </div>
             </div>
-
-            <button type="button" class="btn" onclick="getLocation()" style="background: #10B981; color: white; width: 100%;">
-                <i class="fas fa-map-marker-alt"></i> Deteksi Lokasi Saya
-            </button>
-
-            <p class="text-sm text-gray mt" id="locationStatus"></p>
         </div>
 
-        <div class="card">
-            <h3 class="mb2">Kontak</h3>
+        <div class="bg-white/6 border border-white/10 p-6 rounded-xl">
+            <h3 class="font-semibold mb-4 flex items-center gap-2">
+                <svg class="w-5 h-5 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+                Lokasi Usaha
+            </h3>
 
-            <label>Nomor WhatsApp *</label>
-            <input type="text" name="whatsapp" value="{{ old('whatsapp') }}" placeholder="08123456789" required>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Alamat Lengkap *</label>
+                    <textarea name="address" rows="2" placeholder="Jl. Merdeka No. 123, Bandung" required class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent text-white placeholder:text-white/40 resize-none">{{ old('address') }}</textarea>
+                </div>
 
-            <label>Jam Operasional</label>
-            <input type="text" name="operating_hours" value="{{ old('operating_hours') }}" placeholder="08:00 - 21:00">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Koordinat GPS *</label>
+                    <div class="flex gap-3">
+                        <input type="text" name="latitude" id="latitude" value="{{ old('latitude') }}" placeholder="Latitude" required class="flex-1 px-4 py-3 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent text-white placeholder:text-white/40">
+                        <input type="text" name="longitude" id="longitude" value="{{ old('longitude') }}" placeholder="Longitude" required class="flex-1 px-4 py-3 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent text-white placeholder:text-white/40">
+                    </div>
+                </div>
+
+                <button type="button" onclick="getLocation()" class="w-full px-4 py-3 rounded-lg bg-green-500 hover:bg-green-600 text-white font-medium transition flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    Deteksi Lokasi Saya
+                </button>
+
+                <p class="text-sm text-white/60" id="locationStatus"></p>
+            </div>
         </div>
 
-        <button type="submit" class="btn btn-primary btn-block">
-            <i class="fas fa-check"></i> Daftar Sekarang
+        <div class="bg-white/6 border border-white/10 p-6 rounded-xl">
+            <h3 class="font-semibold mb-4 flex items-center gap-2">
+                <svg class="w-5 h-5 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                </svg>
+                Kontak
+            </h3>
+
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Nomor WhatsApp *</label>
+                    <input type="text" name="whatsapp" value="{{ old('whatsapp') }}" placeholder="08123456789" required class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent text-white placeholder:text-white/40">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-2">Jam Operasional</label>
+                    <input type="text" name="operating_hours" value="{{ old('operating_hours') }}" placeholder="08:00 - 21:00" class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-brand-accent focus:border-transparent text-white placeholder:text-white/40">
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="w-full px-6 py-3 rounded-lg bg-brand-accent text-black font-semibold hover:bg-brand-accent/90 transition flex items-center justify-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            Daftar Sekarang
         </button>
     </form>
 </div>
@@ -91,7 +141,7 @@ function previewLogo(event) {
         reader.onload = function(e) {
             const preview = document.getElementById('logoPreview');
             preview.src = e.target.result;
-            preview.style.display = 'block';
+            preview.classList.remove('hidden');
         }
         reader.readAsDataURL(file);
     }
@@ -101,7 +151,7 @@ function previewLogo(event) {
 function getLocation() {
     const status = document.getElementById('locationStatus');
     status.textContent = 'Mendeteksi lokasi...';
-    status.style.color = '#3B82F6';
+    status.className = 'text-sm text-blue-400';
 
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
@@ -109,16 +159,16 @@ function getLocation() {
                 document.getElementById('latitude').value = position.coords.latitude.toFixed(7);
                 document.getElementById('longitude').value = position.coords.longitude.toFixed(7);
                 status.textContent = '✅ Lokasi berhasil dideteksi!';
-                status.style.color = '#10B981';
+                status.className = 'text-sm text-green-400';
             },
             function(error) {
                 status.textContent = '❌ Gagal mendeteksi lokasi. Izinkan akses lokasi di browser Anda.';
-                status.style.color = '#EF4444';
+                status.className = 'text-sm text-red-400';
             }
         );
     } else {
         status.textContent = '❌ Browser Anda tidak mendukung GPS.';
-        status.style.color = '#EF4444';
+        status.className = 'text-sm text-red-400';
     }
 }
 </script>

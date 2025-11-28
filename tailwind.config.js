@@ -12,9 +12,23 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Inter', 'Poppins', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                brand: {
+                    DEFAULT: '#0f0f0f',    // gelap seperti logo
+                    accent: '#eab308',     // aksen kuning
+                    muted: '#f8f6f6',      // outline putih lembut
+                    dark: '#111111',
+                }
+            },
+            borderRadius: {
+                xl: '1rem'
+            }
         },
     },
-    plugins: [],
+    plugins: [
+        require('@tailwindcss/forms'),
+        require('@tailwindcss/typography'),
+    ],
 };

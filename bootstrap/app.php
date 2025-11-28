@@ -14,5 +14,15 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        // Suppress broken pipe notices from Laravel's development server
+        // This occurs when clients disconnect before the server finishes writing to stdout
+        if (PHP_SAPI === 'cli-server') {
+            set_error_handler(function ($errno, $errstr, $errfile, $errline) {
+                // Suppress broken pipe errors (errno 32) from server.php
+                if ($errno === E_NOTICE && strpos($errstr, 'Broken pipe') !== false) {
+                    return true; // Suppress the error
+                }
+                return false; // Use default error handler for other errors
+            }, E_NOTICE);
+        }
     })->create();
