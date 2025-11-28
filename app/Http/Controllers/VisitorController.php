@@ -20,16 +20,41 @@ class VisitorController extends Controller
         $lat = $request->get('lat');
         $lng = $request->get('lng');
         $radius = $request->get('radius_km', 10);
+        $searchQuery = $request->get('q');
 
+        // Jika tidak ada lokasi, tampilkan form request lokasi
         if (!$lat || !$lng) {
             return view('visitor.nearby', [
                 'companies' => collect([]),
                 'needLocation' => true,
+                'searchQuery' => $searchQuery,
             ]);
         }
 
-        // Haversine query - FIX BINDING
-        $companies = Company::select('companies.*')
+        // Query dasar
+        $query = Company::where('status', 'approved');
+
+        // Filter pencarian jika ada
+        if ($searchQuery) {
+            $query->where(function ($q) use ($searchQuery) {
+                // Pencarian di field company
+                $q->where('name', 'like', "%{$searchQuery}%")
+                  ->orWhere('category', 'like', "%{$searchQuery}%")
+                  ->orWhere('description', 'like', "%{$searchQuery}%")
+                  ->orWhere('address', 'like', "%{$searchQuery}%")
+                  // Pencarian di produk (nama dan deskripsi produk)
+                  ->orWhereHas('products', function ($productQuery) use ($searchQuery) {
+                      $productQuery->where('is_active', true)
+                                   ->where(function ($pq) use ($searchQuery) {
+                                       $pq->where('name', 'like', "%{$searchQuery}%")
+                                          ->orWhere('description', 'like', "%{$searchQuery}%");
+                                   });
+                  });
+            });
+        }
+
+        // Haversine query untuk menghitung jarak
+        $companies = $query->select('companies.*')
             ->selectRaw("
                 (6371 * acos(
                     cos(radians(?)) *
@@ -39,10 +64,11 @@ class VisitorController extends Controller
                     sin(radians(latitude))
                 )) AS distance_km
             ", [$lat, $lng, $lat])
-            ->where('status', 'approved')
             ->havingRaw('distance_km <= ?', [$radius])
             ->orderBy('distance_km', 'asc')
-            ->with('user:id,name,avatar')
+            ->with(['user:id,name,avatar', 'products' => function ($productQuery) {
+                $productQuery->where('is_active', true)->with('images');
+            }])
             ->get();
 
         return view('visitor.nearby', [
@@ -51,6 +77,7 @@ class VisitorController extends Controller
             'userLat' => $lat,
             'userLng' => $lng,
             'radius' => $radius,
+            'searchQuery' => $searchQuery,
         ]);
     }
 

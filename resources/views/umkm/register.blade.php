@@ -111,7 +111,7 @@
             <div class="space-y-4">
                 <div>
                     <label class="block text-sm font-medium mb-2">Nomor WhatsApp *</label>
-                    <input type="text" name="whatsapp" value="{{ old('whatsapp') }}" placeholder="08123456789" required class="w-full px-4 py-3 rounded-lg bg-surface/80 border border-border focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-text placeholder:text-muted/60">
+                    <input type="text" name="whatsapp" value="{{ old('whatsapp') }}" placeholder="628123456789" required class="w-full px-4 py-3 rounded-lg bg-surface/80 border border-border focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-text placeholder:text-muted/60">
                 </div>
 
                 <div>

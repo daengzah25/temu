@@ -7,6 +7,13 @@
       value="{{ request('q') }}"
       class="flex-1 px-4 py-3 rounded-lg bg-surface border border-border placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-text" 
     />
+    @if(request('lat') && request('lng'))
+      <input type="hidden" name="lat" value="{{ request('lat') }}">
+      <input type="hidden" name="lng" value="{{ request('lng') }}">
+      @if(request('radius_km'))
+        <input type="hidden" name="radius_km" value="{{ request('radius_km') }}">
+      @endif
+    @endif
     <button 
       type="button" 
       id="useLocation" 
@@ -48,27 +55,26 @@ document.addEventListener('DOMContentLoaded', function() {
         function(position) {
           const { latitude, longitude } = position.coords;
           
-          // Tambahkan input lat/lng jika belum ada
-          let latInput = form.querySelector('input[name="lat"]');
-          let lngInput = form.querySelector('input[name="lng"]');
+          // Hapus input lat/lng yang sudah ada
+          const existingLat = form.querySelector('input[name="lat"]');
+          const existingLng = form.querySelector('input[name="lng"]');
+          if (existingLat) existingLat.remove();
+          if (existingLng) existingLng.remove();
           
-          if (!latInput) {
-            latInput = document.createElement('input');
-            latInput.type = 'hidden';
-            latInput.name = 'lat';
-            form.appendChild(latInput);
-          }
-          
-          if (!lngInput) {
-            lngInput = document.createElement('input');
-            lngInput.type = 'hidden';
-            lngInput.name = 'lng';
-            form.appendChild(lngInput);
-          }
-          
+          // Tambahkan input lat/lng baru
+          const latInput = document.createElement('input');
+          latInput.type = 'hidden';
+          latInput.name = 'lat';
           latInput.value = latitude;
-          lngInput.value = longitude;
+          form.appendChild(latInput);
           
+          const lngInput = document.createElement('input');
+          lngInput.type = 'hidden';
+          lngInput.name = 'lng';
+          lngInput.value = longitude;
+          form.appendChild(lngInput);
+          
+          // Search query akan otomatis terkirim karena sudah ada di form
           locationMsg.textContent = 'Lokasi ditemukan. Menampilkan UMKM terdekat...';
           form.submit();
         },

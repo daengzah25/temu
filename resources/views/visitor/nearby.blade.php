@@ -5,6 +5,9 @@
 @section('content')
 <div class="space-y-4">
   @if($needLocation)
+    <!-- Search Bar -->
+    @include('components.search-bar')
+
     <!-- Location Request -->
     <div class="text-center py-12">
       <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-surface/80 mb-4">
@@ -33,9 +36,18 @@
     <!-- Results Header -->
     <div class="flex items-center justify-between">
       <div>
-        <h2 class="text-xl font-bold text-text">UMKM Terdekat</h2>
+        <h2 class="text-xl font-bold text-text">
+          @if(request('q'))
+            Hasil Pencarian: "{{ request('q') }}"
+          @else
+            UMKM Terdekat
+          @endif
+        </h2>
         <p class="text-sm text-muted mt-1">
           {{ $companies->count() }} ditemukan dalam radius {{ $radius }} km
+          @if(request('q'))
+            untuk "{{ request('q') }}"
+          @endif
         </p>
       </div>
       <button 
@@ -62,7 +74,11 @@
           </div>
           <h3 class="text-lg font-semibold mb-2 text-text">Tidak Ada UMKM</h3>
           <p class="text-muted text-sm">
-            Tidak ada UMKM dalam radius {{ $radius }} km dari lokasi Anda
+            @if(request('q'))
+              Tidak ada UMKM yang sesuai dengan pencarian "{{ request('q') }}" dalam radius {{ $radius }} km dari lokasi Anda
+            @else
+              Tidak ada UMKM dalam radius {{ $radius }} km dari lokasi Anda
+            @endif
           </p>
         </div>
       @endforelse
@@ -89,7 +105,16 @@ function detectLocation() {
       const lat = position.coords.latitude;
       const lng = position.coords.longitude;
       loadingMsg.remove();
-      window.location.href = `/nearby?lat=${lat}&lng=${lng}`;
+      
+      // Preserve search query if exists
+      const urlParams = new URLSearchParams(window.location.search);
+      const searchQuery = urlParams.get('q');
+      let redirectUrl = `/nearby?lat=${lat}&lng=${lng}`;
+      if (searchQuery) {
+        redirectUrl += `&q=${encodeURIComponent(searchQuery)}`;
+      }
+      
+      window.location.href = redirectUrl;
     },
     function(error) {
       loadingMsg.remove();
