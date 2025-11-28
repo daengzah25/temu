@@ -19,7 +19,7 @@ class VisitorController extends Controller
     {
         $lat = $request->get('lat');
         $lng = $request->get('lng');
-        $radius = $request->get('radius_km', 10);
+        $radius = $request->get('radius_km', 50); // Default radius 50km (sangat luas)
         $searchQuery = $request->get('q');
 
         // Jika tidak ada lokasi, tampilkan form request lokasi
@@ -30,6 +30,11 @@ class VisitorController extends Controller
                 'searchQuery' => $searchQuery,
             ]);
         }
+
+        // Validasi koordinat
+        $lat = (float) $lat;
+        $lng = (float) $lng;
+        $radius = max(5, min(100, (float) $radius)); // Clamp radius antara 5-100 km
 
         // Query dasar
         $query = Company::where('status', 'approved');
@@ -57,11 +62,13 @@ class VisitorController extends Controller
         $companies = $query->select('companies.*')
             ->selectRaw("
                 (6371 * acos(
-                    cos(radians(?)) *
-                    cos(radians(latitude)) *
-                    cos(radians(longitude) - radians(?)) +
-                    sin(radians(?)) *
-                    sin(radians(latitude))
+                    GREATEST(-1, LEAST(1,
+                        cos(radians(?)) *
+                        cos(radians(latitude)) *
+                        cos(radians(longitude) - radians(?)) +
+                        sin(radians(?)) *
+                        sin(radians(latitude))
+                    ))
                 )) AS distance_km
             ", [$lat, $lng, $lat])
             ->havingRaw('distance_km <= ?', [$radius])

@@ -1,11 +1,11 @@
 <div class="mt-4">
-  <form id="searchForm" action="{{ route('visitor.nearby') }}" method="GET" class="flex gap-2">
+  <form id="searchForm" action="{{ route('visitor.nearby') }}" method="GET" class="flex gap-2 flex-wrap md:flex-nowrap">
     <input 
       type="text" 
       name="q" 
       placeholder="Cari UMKM, produk, kategori..." 
       value="{{ request('q') }}"
-      class="flex-1 px-4 py-3 rounded-lg bg-surface border border-border placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-text" 
+      class="flex-1 min-w-0 px-3 md:px-4 py-2 md:py-3 rounded-lg bg-surface border border-border placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-text text-sm md:text-base" 
     />
     @if(request('lat') && request('lng'))
       <input type="hidden" name="lat" value="{{ request('lat') }}">
@@ -17,17 +17,17 @@
     <button 
       type="button" 
       id="useLocation" 
-      class="px-3 py-3 rounded-lg bg-surface border border-border hover:bg-surface/80 transition text-text"
+      class="px-2 md:px-3 py-2 md:py-3 rounded-lg bg-surface border border-border hover:bg-surface/80 transition text-text flex-shrink-0"
       title="Gunakan Lokasi Saya"
     >
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg class="w-4 md:w-5 h-4 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
       </svg>
     </button>
     <button 
       type="submit" 
-      class="px-4 py-3 rounded-lg bg-accent text-accent-contrast font-medium hover:bg-accent/90 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+      class="px-3 md:px-4 py-2 md:py-3 rounded-lg bg-accent text-accent-contrast font-medium hover:bg-accent/90 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent text-sm md:text-base flex-shrink-0"
     >
       Cari
     </button>

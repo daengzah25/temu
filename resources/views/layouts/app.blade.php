@@ -6,7 +6,8 @@
   <meta name="description" content="Platform Temu - Temukan UMKM Terdekat">
   <meta name="color-scheme" content="dark light">
   <title>@yield('title', 'Temu UMKM')</title>
-  @vite(['resources/css/app.css', 'resources/js/app.js'])
+  <link rel="stylesheet" href="/build/assets/app-CBEZborb.css">
+  <script type="module" src="/build/assets/app-BWviUBFN.js"></script>
   @stack('styles')
 </head>
 <body class="bg-bg text-text min-h-screen">
